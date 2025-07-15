@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="automateNow.HandlingDatePicker">
+      <class name="automationBlogSpot.HandlingDatePicker2">
         <methods>
+          <include name="teaDown"/>
           <include name="setUp"/>
-          <include name="tearDown"/>
           <include name="datePicker"/>
         </methods>
-      </class> <!-- automateNow.HandlingDatePicker -->
+      </class> <!-- automationBlogSpot.HandlingDatePicker2 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
