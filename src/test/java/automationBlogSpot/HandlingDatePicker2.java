@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -31,16 +32,20 @@ public class HandlingDatePicker2 {
 		String date = "29";
 		String month = "July";
 		String year = "2015";
+		try {
+			WebElement monthDrpDown = driver.findElement(By.xpath("//select[@class='ui-datepicker-month']"));
+			WebElement yearDrpDown = driver.findElement(By.xpath("//select[@aclass='ui-datepicker-year']"));
 
-		WebElement monthDrpDown = driver.findElement(By.xpath("//select[@class='ui-datepicker-month']"));
-		WebElement yearDrpDown = driver.findElement(By.xpath("//select[@aclass='ui-datepicker-year']"));
+			Select sl1 = new Select(monthDrpDown);
+			sl1.selectByContainsVisibleText(month);
+			Select sl2 = new Select(yearDrpDown);
+			sl2.selectByContainsVisibleText(year);
 
-		Select sl1 = new Select(monthDrpDown);
-		sl1.selectByContainsVisibleText(month);
-		Select sl2 = new Select(yearDrpDown);
-		sl2.selectByContainsVisibleText(year);
-
-		selectDate(driver, date);
+			selectDate(driver, date);
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			System.out.println("Please check the Xpath");
+		}
 
 	}
 
