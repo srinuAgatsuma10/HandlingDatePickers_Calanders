@@ -2,6 +2,7 @@ package automationBlogSpot;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Scanner;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ import org.testng.annotations.Test;
 public class HandlingDatePicker1 {
 
 	WebDriver driver;
+	Scanner sc;
 
 	@BeforeClass
 	public void setUp() {
@@ -21,7 +23,8 @@ public class HandlingDatePicker1 {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().deleteAllCookies();
 		driver.get("https://testautomationpractice.blogspot.com/");
-		driver.manage().window().maximize();
+//		driver.manage().window().maximize();
+		sc = new Scanner(System.in);
 	}
 
 	@Test
@@ -29,7 +32,7 @@ public class HandlingDatePicker1 {
 		driver.findElement(By.xpath("//input[@id='datepicker']")).click();
 		String date = "29";
 		String month = "July";
-		String year = "2004";
+		String year = sc.nextLine();
 
 		selectYearMonth(driver, month, year);
 		selectDate(driver, date);
@@ -43,8 +46,14 @@ public class HandlingDatePicker1 {
 
 			if (currentMonth.equals(month) && currentYear.equals(year)) {
 				break;
+			} else if (currentMonth.equals(month) && Integer.parseInt(currentYear) < Integer.parseInt(year)) {
+				// Next
+				driver.findElement(By.xpath("//a[@title='Next']")).click();
+			} else {
+				// Previous
+				driver.findElement(By.xpath("//a[@title='Prev']")).click();
+				
 			}
-			driver.findElement(By.xpath("//a[@title='Prev']")).click();
 		}
 	}
 
